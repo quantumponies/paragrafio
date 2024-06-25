@@ -1,6 +1,10 @@
-package transaction
+package db
 
-import "gorm.io/gorm"
+import (
+	"paragrafio/pkg/models"
+
+	"gorm.io/gorm"
+)
 
 type TransactionProvider struct {
 	DBConn          *gorm.DB

@@ -5,5 +5,7 @@ import (
 )
 
 type Providers struct {
-	PageCache      models.PageCache
+	TransactionProvider models.TransactionProvider
+	PageCache models.PageCache
+	S3Storage models.S3Storage
 }
