@@ -1,0 +1,7 @@
+redis:
+  address: paragrafio-redis-service:6379
+  password:
+  db: 0
+  is_cache_enabled: true
+  user_content_cache_version: 55
+  cache_version: 55

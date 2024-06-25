@@ -1,0 +1,7 @@
+redis:
+  address: localhost:6378
+  password:
+  db: 0
+  is_cache_enabled: false
+  user_content_cache_version: 1
+  cache_version: 1
