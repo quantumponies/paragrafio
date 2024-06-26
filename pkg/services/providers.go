@@ -8,4 +8,6 @@ type Providers struct {
 	TransactionProvider models.TransactionProvider
 	PageCache models.PageCache
 	S3Storage models.S3Storage
+
+	UserRepository models.UserRepository
 }

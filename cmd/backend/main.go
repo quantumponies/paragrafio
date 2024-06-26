@@ -6,6 +6,7 @@ import (
 	"paragrafio/pkg/components/db"
 	"paragrafio/pkg/components/redis"
 	"paragrafio/pkg/components/s3"
+	"paragrafio/pkg/components/ugc"
 	"paragrafio/pkg/config"
 	"paragrafio/pkg/routers"
 	"paragrafio/pkg/services"
@@ -19,10 +20,8 @@ func main() {
 	dbConnection := db.Connect()
 	redisConnection := redis.Connect()
 	s3Connection := s3.Init()
-
-	transactionProvider := &db.TransactionProvider{
-		DBConn: dbConnection.Connection,
-	}
+	transactionProvider := db.GetTransactionProvider(dbConnection)
+	ugcPolicy := ugc.GetUGCPolicy()
 
 	providers := services.Providers{
 		TransactionProvider: transactionProvider,
@@ -33,6 +32,8 @@ func main() {
 			UserContentCacheVersion: viper.GetString("redis.user_content_cache_version"),
 		},
 		S3Storage: &s3.S3Storage{S3: s3Connection},
+		
+		UserRepository: &db.UserRepository{TransactionProvider: transactionProvider},
 	}
 	port := fmt.Sprintf(":%s", viper.GetString("web.port"))
 	http.ListenAndServe(port, routers.CreateBackendRouter(&providers))

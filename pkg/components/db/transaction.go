@@ -40,3 +40,9 @@ func (t *Transaction) Commit() error {
 func (t *Transaction) Rollback() error {
 	return t.tx.Rollback().Error
 }
+
+func GetTransactionProvider(dbConnection *DB) *TransactionProvider {
+	return &TransactionProvider{
+		DBConn: dbConnection.Connection,
+	}
+}
